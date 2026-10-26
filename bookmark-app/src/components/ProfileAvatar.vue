@@ -1,15 +1,22 @@
 <script lang="ts" setup>
-const { name } = defineProps<{ name: string }>();
+import {useProfileStore} from "@/stores/profile.store.ts";
+import {onMounted} from "vue";
+
+const store = useProfileStore();
+
+onMounted(() => {
+  store.fetchProfile();
+});
 </script>
 
 <template>
-  <div class="user">
+  <div class="user" v-if="store.profile">
     <div class="user__avatar">
-      <img alt="" src="https://placehold.co/600x600?text=Hello+World" />
+      <img alt="{{ store.profile.name }}" src="https://placehold.co/600x600?text=Hello+World"/>
     </div>
     <div class="user__hello">
       Привет,
-      <span class="user__name">{{ name }}!</span>
+      <span class="user__name">{{ store.profile.name }}!</span>
     </div>
   </div>
 </template>
@@ -30,6 +37,7 @@ const { name } = defineProps<{ name: string }>();
     aspect-ratio: 1;
     object-fit: cover;
     object-position: center;
+    pointer-events: none;
 
     > * {
       width: 80px;
@@ -42,6 +50,7 @@ const { name } = defineProps<{ name: string }>();
   &__hello {
     font-size: 18px;
   }
+
   &__name {
     font-size: inherit;
     font-weight: 700;
