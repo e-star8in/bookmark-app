@@ -1,0 +1,26 @@
+:root {
+  --color-bg: #ffffff;
+  --color-primary: #1c1c1c;
+  --color-primary-inactive: #1c1c1c66;
+
+  --font: 'Roboto', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font), sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-primary);
+  background-color: var(--color-bg);
+  —webkit—font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  font-synthesis: none;
+  -moz-osx-font-smoothing: grayscale;
+}
