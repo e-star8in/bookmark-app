@@ -22,7 +22,7 @@ const payload = {name: "new", alias: "new"};
     </li>
     <li class="category__item active">Разработка</li>
     <li class="category__add">
-      <ButtonIcon title="Добавить" @click="store.createCategory(payload)">
+      <ButtonIcon title="Добавить" @click="store.createCategory()">
         <IconAdd/>
       </ButtonIcon>
     </li>
