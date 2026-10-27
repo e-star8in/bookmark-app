@@ -10,7 +10,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="user" v-if="store.profile">
+  <div v-if="store.loading" class="loading">Загрузка…</div>
+  <div v-else-if="store.error" class="error">{{ store.error }}</div>
+  <div class="user" v-else-if="store.profile">
     <div class="user__avatar">
       <img alt="{{ store.profile.name }}" src="https://placehold.co/600x600?text=Hello+World"/>
     </div>

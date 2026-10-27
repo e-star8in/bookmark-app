@@ -8,24 +8,25 @@ const store = useCategoryStore();
 onMounted(() => {
   store.fetchCategories();
 });
-
-const payload = {name: "new", alias: "new"};
-
 </script>
 
 <template>
   <ul class="category">
-    <li v-for="category in store.categories"
-        :key="category.id" id="{{category.id}}"
-        class="category__item">
-      <a :href="`/${category.alias}`" class="category__link">{{ category.name }}</a>
-    </li>
-    <li class="category__item active">Разработка</li>
-    <li class="category__add">
-      <ButtonIcon title="Добавить" @click="store.createCategory()">
-        <IconAdd/>
-      </ButtonIcon>
-    </li>
+    <li v-if="store.loading">Загрузка...</li>
+    <li v-else-if="store.error">Ошибка: {{ store.error }}</li>
+    <template v-else-if="store.categories.length">
+      <li v-for="category in store.categories"
+          :key="category.id" id="{{category.id}}"
+          class="category__item">
+        <a :href="`/${category.alias}`" class="category__link">{{ category.name }}</a>
+      </li>
+    </template>
+      <li class="category__item active">Разработка</li>
+      <li class="category__add">
+        <ButtonIcon title="Добавить" @click="store.createCategory()">
+          <IconAdd/>
+        </ButtonIcon>
+      </li>
   </ul>
 </template>
 
