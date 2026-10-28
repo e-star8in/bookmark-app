@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import IconAdd from "@/icons/iconAdd.vue";
 import {useCategoryStore} from "@/stores/categories.store.ts";
 import {onMounted} from "vue";
@@ -16,21 +16,22 @@ onMounted(() => {
     <li v-else-if="store.error">Ошибка: {{ store.error }}</li>
     <template v-else-if="store.categories.length">
       <li v-for="category in store.categories"
-          :key="category.id" id="{{category.id}}"
+          id="{{category.id}}" :key="category.id"
           class="category__item">
-        <a :href="`/${category.alias}`" class="category__link">{{ category.name }}</a>
+        <RouterLink :to="`/main/${category.alias}`" active-class="active" class="category__link">
+          {{ category.name }}
+        </RouterLink>
       </li>
     </template>
-      <li class="category__item active">Разработка</li>
-      <li class="category__add">
-        <ButtonIcon title="Добавить" @click="store.createCategory()">
-          <IconAdd/>
-        </ButtonIcon>
-      </li>
+    <li class="category__add">
+      <ButtonIcon title="Добавить" @click="store.createCategory()">
+        <IconAdd/>
+      </ButtonIcon>
+    </li>
   </ul>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .category {
   display: flex;
   align-items: flex-start;
@@ -41,11 +42,14 @@ onMounted(() => {
   list-style: none;
   gap: 34px;
 
-  &__item {
+
+  &__link {
     font-size: 14px;
     line-height: 24px;
     cursor: pointer;
     transition: font-size 0.2s ease-in-out;
+    text-decoration: none;
+    color: inherit;
 
     &:hover {
       font-size: 18px;
@@ -58,13 +62,6 @@ onMounted(() => {
       font-weight: 700;
       transition: font-size 0.2s ease-in-out;
     }
-  }
-
-  &__link {
-    color: inherit;
-    text-decoration: none;
-    font-size: inherit;
-    font-weight: inherit;
   }
 }
 </style>
